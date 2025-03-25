@@ -169,9 +169,10 @@ app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
 
-// app.get('/', (req, res) => {
-//     res.send('hii i am root path');
-// });
+app.get('/', async(req, res) => {
+    const listings = await Listing.find();
+    res.render('listings/index', {listings});
+});
 
 app.get('/listings/new', (req, res) => {
     res.render('listings/new');
