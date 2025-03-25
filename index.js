@@ -61,7 +61,7 @@ const store = MongoStore.create({
 
     mongoUrl:dbUrl,
     crypto: {
-        secret: "mysuersecretcode"
+        secret: process.env.SECRET
       },
       touchAfter: 24*3600,
 });
@@ -69,7 +69,7 @@ const store = MongoStore.create({
 
 const sessionOptions ={
     store,
-    secret:"mysuersecretcode",
+    secret:process.env.SECRET,
     resave:false,
     saveUninitialized:true,
     Cookie:{
@@ -169,9 +169,9 @@ app.listen(3000, () => {
     console.log('Server is running on port 3000');
 });
 
-app.get('/', (req, res) => {
-    res.send('hii i am root path');
-});
+// app.get('/', (req, res) => {
+//     res.send('hii i am root path');
+// });
 
 app.get('/listings/new', (req, res) => {
     res.render('listings/new');
