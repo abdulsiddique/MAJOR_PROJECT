@@ -1,0 +1,50 @@
+<% layout('/layout/boilerplate') -%>
+<body>
+    <form action="/listings" method="POST"   novalidate  class="needs-validation" >
+        <div>
+    <label for="title" class="form-label">Title</label>
+                                             
+
+
+         <input name="listing[title]"placeholder="enter title" class="form-control" type="text" required id="title">
+         <br>
+        
+         </div>
+
+
+         <div>
+            <label for="description" class="form-label">Description</label>
+        <textarea name="listing[description]" placeholder="enter description" class="form-control" required id="Descripton"></textarea>
+         <br>
+         </div>
+
+
+
+         <div>
+            <label for="image" class="form-label"> Upload Image link</label>
+         <input name="listing[image]"  type="text" class="form-control" required id="image"> 
+         <br>
+         </div>
+
+         <div>
+           <label for="price" class="form-label">  Price</label> 
+         <input name="listing[price]" placeholder="enter price " type="number" class="form-control" required id="price">
+         <br>
+
+<div>
+         <label for="country" class="form-label">Country</label>
+         <input name="listing[country]" placeholder="enter location" type="text" class="form-control" required>
+
+         <br>
+         </div>
+         <div>
+            <label for="location" class="form-label">location</label>
+         <input name="listing[location]" placeholder="enter location" type="text" class="form-control" required>
+         </div>
+         <br>
+         <button class="btn btn-dark">Add</button>
+
+    </form>
+</body>
+</html> 
+
