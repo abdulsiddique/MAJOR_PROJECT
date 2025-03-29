@@ -112,6 +112,27 @@ router.post("/:id/reviews", async (req, res) => {
 });
 
 
+// Search route for listings
+router.get("/", async (req, res) => {
+    try {
+        const searchQuery = req.query.search; // Get search input
+
+        let query = {}; // Default: show all listings
+        if (searchQuery) {
+            query = { title: new RegExp(searchQuery, "i") }; // Case-insensitive search
+        }
+
+        const listings = await Listing.find(query);
+        res.render("listings/index", { listings, searchQuery });
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Error fetching listings");
+    }
+});
+
+module.exports = router;
+
+
 
 
 router.post("/:id/reviews", isLoggedIn,async (req,res)=>{
@@ -136,6 +157,70 @@ router.delete("/:id/reviews/:reviewId" ,reviewcontroller.destroyroute);
 
 
 router.get("/:id", alllistingcontroller.showListing);
+
+
+
+
+router.get("/api/search", async (req, res) => {
+    try {
+        const query = req.query.query;
+        const listings = await Listing.find({
+            title: { $regex: query, $options: "i" } // Case-insensitive search
+        });
+
+        res.json(listings);
+    } catch (err) {
+        res.status(500).json({ error: "Server error" });
+    }
+});
+
+module.exports = router;
+
+
+
+module.exports = router;
+
+
+
+// Search Route
+router.get("/search", async (req, res) => {
+    try {
+        const { query } = req.query;
+        if (!query) {
+            return res.json([]); // Return empty array if query is missing
+        }
+
+        // Search listings by title (case-insensitive)
+        const listings = await Listing.find({ title: new RegExp(query, "i") });
+
+        res.json(listings);
+    } catch (error) {
+        console.error("Search Error:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+
+
+
+
+// 🔹 API to Get Listings by Category
+router.get("/api/listings", async (req, res) => {
+    try {
+        let query = {};
+        if (req.query.category) {
+            query.category = req.query.category;
+        }
+        
+        const listings = await Listing.find(query);
+        res.json(listings);
+    } catch (error) {
+        console.error("Error fetching listings:", error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
+
+module.exports = router;
 
 
 module.exports = router;

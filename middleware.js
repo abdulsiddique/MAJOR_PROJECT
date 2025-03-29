@@ -21,12 +21,51 @@ module.exports.saveRedirectUrl = (req, res, next) => {
   };
   
 
-  module.exports.isowner = async(req,res,next)=>{
-    const { id } = req.params;
-    let listing = await Listing.findById(id);
-    if (!currUser && listing.owner.equals(res.locals.currUser._id)) {
-        req.flash('error', 'You do not have permission to do that');
-        return res.redirect(`/listings/${id}`);
-  }
+//   module.exports.isowner = async(req,res,next)=>{
+//     const { id } = req.params;
+//     let listing = await Listing.findById(id);
+//     if(!currUser && listing.owner.equals(res.locals.currUser._id)) {
+//         req.flash('error', 'You do not have permission to do that');
+//         return res.redirect(`/listings/${id}`);
+//   }
 
-next();};
+// next();};
+
+// module.exports.isOwner = async (req, res, next) => {
+//   const { id } = req.params;
+//   const listing = await Listing.findById(id);
+
+//   if (!listing) {
+//       req.flash('error', 'Listing not found');
+//       return res.redirect('/listings');
+//   }
+
+//   if (!res.locals.currUser || !listing.owner.equals(res.locals.currUser._id)) {
+//       req.flash('error', 'You do not have permission to do that');
+//       return res.redirect(`/listings/${id}`);
+//   }
+
+//   next();
+// };
+module.exports.isowner = async (req, res, next) => {
+  try {
+      const { id } = req.params;
+      const listing = await Listing.findById(id);
+
+      if (!listing) {
+          req.flash('error', 'Listing not found');
+          return res.redirect('/listings');
+      }
+
+      if (!res.locals.currUser || !listing.owner.equals(res.locals.currUser._id)) {
+          req.flash('error', 'You do not have permission to do that');
+          return res.redirect(`/listings/${id}`);
+      }
+
+      next();
+  } catch (error) {
+      console.error(error); // Logs error for debugging
+      req.flash('error', 'Something went wrong');
+      return res.redirect('/listings');
+  }
+};

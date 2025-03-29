@@ -1,7 +1,13 @@
 {
+
+
+  "engines": {
+    "node": "v22.14.0"
+  },
   "name": "major_project",
   "version": "1.0.0",
   "main": "index.js",
+
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
@@ -18,7 +24,6 @@
     "cloudinary": "^1.41.3",
     "connect": "^3.7.0",
     "connect-flash": "^0.1.1",
-    "connect-mongo": "^5.1.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "ejs": "^3.1.10",
@@ -32,8 +37,8 @@
     "method": "^2.0.0",
     "method-override": "^3.0.0",
     "methood": "^0.2.4",
-    "mongodb": "^6.15.0",
     "mongoose": "^8.10.1",
+    "multer": "^1.4.5-lts.1",
     "multer-storage-cloudinary": "^4.0.0",
     "override": "^0.0.1",
     "passport": "^0.7.0",

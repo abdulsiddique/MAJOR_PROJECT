@@ -41,10 +41,19 @@
         <div class="navbar-nav ms-auto">
           <nav class="navbar bg-body-tertiary">
             <div class="container-fluid">
-              <form class="d-flex" role="search">
+              <!-- <form class="d-flex" role="search">
                 <input class="form-control me-2 search-inp" type="search" placeholder="Search" aria-label="Search">
                 <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-              </form>
+              </form> -->
+
+              <form id="search-form"  class="d-flex ">
+                <!-- <input type="text" id="search-input" class="form-control" placeholder="Search listings..." /> -->
+                <input class="form-control me-2 search-inp" id="search-input" type="search" placeholder="Search " aria-label="Search">
+
+                <button class="btn btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+
+            </form>
+            <div id="search-results"></div>
             </div>
           </nav>
         </div>

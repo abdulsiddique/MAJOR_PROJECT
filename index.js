@@ -31,6 +31,10 @@ const ListingRouter = require('./routes/listing.js');
 const reviewRouter = require('./routes/reviews.js');
 const userRouter = require('./routes/user.js');
 
+const searchRoutes = require("./routes/api"); // Adjust if needed
+app.use("/api", searchRoutes); // Mount the API routes
+
+
 
 app.use(express.urlencoded({ extended: true })); // For parsing form data
 app.use(express.json()); // If you're sending JSON data
@@ -43,6 +47,12 @@ app.use(methodOverride('_method'));
 app.engine('ejs', ejsmate);
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static('public'));
+
+app.use((req, res, next) => {
+    res.locals.searchQuery = req.query.search || ""; // Make searchQuery available in all views
+    next();
+});
+
 
 // const session = require('express-session');
 
@@ -65,6 +75,9 @@ const store = MongoStore.create({
       },
       touchAfter: 24*3600,
 });
+
+
+
 
 
 const sessionOptions ={
@@ -315,6 +328,7 @@ async function connectDB() {
         await mongoose.connect(dbUrl, {
             useNewUrlParser: true,
             useUnifiedTopology: true,
+            
         });
         console.log("MongoDB connected successfully!");
     } catch (error) {
@@ -329,3 +343,7 @@ connectDB();
 
 
 
+const apiRoutes = require("./routes/api");
+
+app.use(express.json());
+app.use("/api", apiRoutes); //

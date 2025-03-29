@@ -19,10 +19,40 @@
          </div>
 
 
+         <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select class="form-select" id="category" name="listing[category]" required>
+                <option value="Trending">Trending</option>
+                <option value="Rooms">Rooms</option>
+                <option value="Iconic Cities">Iconic Cities</option>
+                <option value="Mountains">Mountains</option>
+                <option value="Castles">Castles</option>
+                <option value="Amazing Pools">Amazing Pools</option>
+                <option value="Camping">Camping</option>
+                <option value="Farms">Farms</option>
+                <option value="Arctic Pools">Arctic Pools</option>
+            </select>
+        </div>
+        
+<!-- lattittude -->
+         <div>
+            <label for="latitude" class="form-label">Latitude</label>
+            <input name="listing[geometry][coordinates][1]" placeholder="Enter latitude" class="form-control" type="number" step="any" required id="latitude">
+            <br>
+        </div>
+        
+        <div>
+            <label for="longitude" class="form-label">Longitude</label>
+            <input name="listing[geometry][coordinates][0]" placeholder="Enter longitude" class="form-control" type="number" step="any" required id="longitude">
+            <br>
+        </div>
+        
+
+
 
          <div>
             <label for="image" class="form-label"> Upload Image link</label>
-         <input name="listing[image]"  type="text" class="form-control" required id="image"> 
+         <input name="listing[image][url]"  type="text" class="form-control" required id="image"> 
          <br>
          </div>
 

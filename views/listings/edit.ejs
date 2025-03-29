@@ -1,4 +1,4 @@
-<% layout('/layout/boilerplate') -%>
+<!-- <% layout('/layout/boilerplate') -%>
 
 <body>
     <h3>Edit your Listings </h3>
@@ -24,6 +24,8 @@
         <br>
         </div>
 
+        
+
         <div>
             <label for="price" class="form-label">price</label>
         <input name="listing[price]" placeholder="enter price " type="number" value="<%= listings.price %>" class="form-control">    
@@ -43,4 +45,47 @@
         <button  class="btn btn-dark">Add</button>
 
    </form>
-</body>
+</body> -->
+
+
+
+ <% layout('/layout/boilerplate') -%>
+
+<body>
+    <h3>Edit your Listing</h3>
+    <form method="POST" action="/listings/<%= listings._id %>?_method=PUT">
+        <div>
+            <label for="title" class="form-label">Title</label>
+            <input name="listing[title]" placeholder="Enter title" value="<%= listings.title %>" class="form-control">
+        </div>
+
+        <div>
+            <label for="description" class="form-label">Description</label>
+            <textarea name="listing[description]" placeholder="Enter description" class="form-control"><%= listings.description %></textarea>
+        </div>
+
+        <div>
+            <label for="image" class="form-label">Image</label>
+            <input name="listing[image][url]" placeholder="Enter image URL" type="text" value="<%= listings.image %>" class="form-control">  
+        </div>
+
+        <div>
+            <label for="price" class="form-label">Price</label>
+            <input name="listing[price]" placeholder="Enter price" type="number" value="<%= listings.price %>" class="form-control">    
+        </div>
+
+        <div>
+            <label for="country" class="form-label">Country</label>
+            <input name="listing[country]" placeholder="Enter country" type="text" value="<%= listings.country %>" class="form-control">
+        </div>
+
+        <div>
+            <label for="location" class="form-label">Location</label>
+            <input name="listing[location]" placeholder="Enter location" type="text" value="<%= listings.location %>" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-dark">Update</button>
+    </form>
+</body> 
+
+

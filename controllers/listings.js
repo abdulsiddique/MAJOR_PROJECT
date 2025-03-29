@@ -71,13 +71,33 @@ module.exports.updateListing = async (req, res) => {
     
 
 
-    const { id } = req.params;
-   
-
-
-    await listing.findByIdAndUpdate(id, {...req.body.listing});
-    res.redirect(`/listings/${id}`);
+        try {
+            const { id } = req.params;
+            const updatedListing = await Listing.findByIdAndUpdate(
+                id,
+                { ...req.body.listing },
+                { new: true, runValidators: true }
+            );
+    
+            // Ensure image updates properly
+            if (req.body.listing.image) {
+                updatedListing.image = { url: req.body.listing.image.url };
+                await updatedListing.save(); // Save the updated image field
+            }
+    
+            res.redirect(`/listings/${id}`);
+        } catch (error) {
+            console.error("Error updating listing:", error);
+            res.status(500).send("Internal Server Error");
+        }
+    
+    
 };
+
+
+
+
+
 
 // module.exports.deleteListing = async (req, res) => {
 //     async (req, res) => {
@@ -96,5 +116,18 @@ module.exports.deleteListing = async (req, res) => {
     } catch (e) {
         req.flash("error", "Failed to delete listing.");
         res.redirect("/listings");
+    }
+};
+
+module.exports.getAllListings = async (req, res) => {
+    try {
+        const searchQuery = req.query.search;
+        let query = searchQuery ? { title: new RegExp(searchQuery, "i") } : {};
+        
+        const listings = await Listing.find(query);
+        res.render("listings/index", { listings, searchQuery });
+    } catch (err) {
+        console.error(err);
+        res.status(500).send("Internal Server Error");
     }
 };
